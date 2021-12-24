@@ -66,7 +66,7 @@ class FactRepository
             $this->baseUrl . '/facts/' . $id
         );
         $response = $this->httpClient->sendRequest($request);
-        $this->ensureHttpResponseIsOK($response);
+        $this->ensureHttpResponseOK($response);
         $body = $response->getBody();
         
             
@@ -88,8 +88,10 @@ class FactRepository
            string $animalType = Fact::CAT): FactCollection {
        
        $request = $this->createRequest(
-            $this->baseUrl . '/facts/random', 
-               ['amount' => $amount,'animal_type' => $animalType,]);
+            $this->baseUrl . '/facts/random', [
+                'amount' => $amount,
+                'animal_type' => $animalType,
+               ]);
        
        
         $response = $this->httpClient->sendRequest($request);
@@ -160,7 +162,7 @@ class FactRepository
         array $params = []
     ): RequestInterface {
         
-        $adress = sprintf('%s%s?%s', $this->baseUrl, $endPoint, http_build_query($params));
+        $adress = sprintf('%s?%s', $endPoint, http_build_query($params));
         
         $request = new Request('GET', $adress);
         return $request;

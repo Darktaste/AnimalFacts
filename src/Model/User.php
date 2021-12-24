@@ -43,9 +43,9 @@ class User
      */
     public function __construct(string $id, string $photo, array $name)
     {
-        $this->id = (string) $id;
-        $this->photo = (string) $photo;
-        $this->name = (array) $name;
+        $this->setId($id);
+        $this->setPhoto($photo);
+        $this->setName($name);
     }
     
     /**
