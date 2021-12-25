@@ -135,14 +135,7 @@ class FactRepository
         $fact->setStatus($status);
         
         
-        $user = new User($object->user->_id, $object->user->photo,
-                [
-                    'first' => $object->user->name->first, 
-                    'last' => $object->user->name->last
-                ]
-            );
-            
-        $fact->setAuthor($user);
+        
         
 
         return $fact;
@@ -162,9 +155,9 @@ class FactRepository
         array $params = []
     ): RequestInterface {
         
-        $adress = sprintf('%s?%s', $endPoint, http_build_query($params));
+       
         
-        $request = new Request('GET', $adress);
+        $request = new Request('GET',$endPoint . '?' . http_build_query($params));
         return $request;
     }
     
@@ -178,9 +171,10 @@ class FactRepository
     protected function decodeResponseBody(StreamInterface $body)
     {
         try {
-            return json_decode($body);
+            return json_decode($body . '');
         } catch (Exception $ex) {
             throw new InvalidResponseBodyException($ex);
+            
         }
  
     }
